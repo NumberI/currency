@@ -1,0 +1,10 @@
+= @cur["ValCurs"]["Date"]
+= @cur["ValCurs"]["Valute"]
+table
+  - @cur["ValCurs"]["Valute"].each do |row|
+    tr
+      td 
+        = row["Name"]
+      td
+        = row["Value"]
+
