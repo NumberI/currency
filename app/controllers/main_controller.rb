@@ -7,7 +7,7 @@ class MainController < ApplicationController
   def root
     # http = Net::HTTP.new("http://www.cbr.ru")
     date = rand(0..20).days.ago.strftime("%d/%m/%Y")
-    xml = open("http://212.40.192.49/scripts/XML_daily.asp?date_req=#{date}").read
+    xml = open("https://www.cbr.ru/scripts/XML_daily.asp?date_req=#{date}").read
     # xml = open("https://www.cbr.ru/scripts/XML_daily.asp?date_req=24/09/2019").read
     cur = Hash.from_xml(xml, ['integer'])
     @date = cur["ValCurs"]["Date"]
@@ -17,5 +17,7 @@ class MainController < ApplicationController
       format.html 
       format.json { render json: @dollar }
     end
+    ActionCable.server.broadcast "exchange_channel", content: @date
+
   end
 end
