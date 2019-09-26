@@ -6,18 +6,14 @@ class MainController < ApplicationController
 
   def root
     # http = Net::HTTP.new("http://www.cbr.ru")
-    date = rand(0..20).days.ago.strftime("%d/%m/%Y")
-    xml = open("https://www.cbr.ru/scripts/XML_daily.asp?date_req=#{date}").read
-    # xml = open("https://www.cbr.ru/scripts/XML_daily.asp?date_req=24/09/2019").read
-    cur = Hash.from_xml(xml, ['integer'])
-    @date = cur["ValCurs"]["Date"]
-    @dollar = cur["ValCurs"]["Valute"].detect{|h| h["Name"] == "Доллар США"}
-    
+    @dollar = Rate.find(1)
+    # @date = cur["ValCurs"]["Date"]
+        
     respond_to do |format|
       format.html 
       format.json { render json: @dollar }
     end
-    ActionCable.server.broadcast "exchange_channel", content: @date
+    ActionCable.server.broadcast "exchange_channel", content: @dollar
 
   end
 end
