@@ -7,9 +7,9 @@
 #
 # set :output, "/path/to/my/cron_log.log"
 #
-every 1.minutes do
+every 2.minutes do
   # command "/usr/bin/some_great_command"
-  runner "MainController.root"
+  runner "Rate.new_rate"
 #   rake "some:great:rake:task"
 end
 #
