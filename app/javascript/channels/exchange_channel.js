@@ -11,9 +11,8 @@ consumer.subscriptions.create("ExchangeChannel", {
   },
 
   received(data) {
-    alert('f');
     // Called when there's incoming data on the websocket for this channel
     console.log("Recieving:");
-    // console.log(data);
+    console.log(data);
   }
 });
