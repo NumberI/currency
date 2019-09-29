@@ -13,7 +13,7 @@ class MainController < ApplicationController
       format.html 
       format.json { render json: @dollar }
     end
-    ActionCable.server.broadcast "exchange_channel", content: @dollar
+    # ActionCable.server.broadcast "exchange_channel", content: @dollar
 
   end
 end
