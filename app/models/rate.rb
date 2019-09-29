@@ -22,11 +22,13 @@ class Rate < ApplicationRecord
     cur = Hash.from_xml(xml, ['integer'])
     @date = cur["ValCurs"]["Date"]
     @dollar = cur["ValCurs"]["Valute"].detect{|h| h["Name"] == "Доллар США"}
-    Rate.upsert(id: 1, name: @dollar["Name"], val: @dollar["Value"], created_at: Time.now, updated_at: Time.now)
+    # Rate.upsert(id: 1, name: @dollar["Name"], val: @dollar["Value"], created_at: Time.now, updated_at: Time.now)
+    Rate.find_or_initialize_by(:id => 1).update(name: @dollar["Name"], val: @dollar["Value"], created_at: Time.now, updated_at: Time.now)
   end
 
   private
   def send_broadcast
+    p "test b"
     rate = Rate.find(1)
     ActionCable.server.broadcast "exchange_channel", content: rate
   end
