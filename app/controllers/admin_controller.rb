@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   def new
-    @rate = Rate.new
+    Rate.exists?(2) ? @rate = Rate.find(2) : @rate = Rate.new
     # @errors = @rate.errors.full_messages
   end
 
