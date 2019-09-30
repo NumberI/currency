@@ -1,0 +1,14 @@
+- if flash[:error]
+  div
+    p #{flash[:error]}
+= form_with(model: @rate, url: admin_update_path) do |f|
+  = f.label "Значение курса"
+  br
+  = f.text_field :val
+  br
+  = f.label "До какой даты действует курс"
+  br
+  = f.datetime_local_field :fixed_till
+  br
+  br
+  = f.submit

@@ -12,6 +12,11 @@
 class Rate < ApplicationRecord
   require 'open-uri'
   require 'rexml/document'
+
+  validates :val, presence: true
+  # validate do
+  #   self.errors[:fixed_till] << "Дата должна быть указана в правильном формате" unless (DateTime.parse(self.fixed_till) rescue false)
+  # end
   
   after_commit :send_broadcast
 
@@ -23,13 +28,18 @@ class Rate < ApplicationRecord
     @date = cur["ValCurs"]["Date"]
     @dollar = cur["ValCurs"]["Valute"].detect{|h| h["Name"] == "Доллар США"}
     # Rate.upsert(id: 1, name: @dollar["Name"], val: @dollar["Value"], created_at: Time.now, updated_at: Time.now)
-    Rate.find_or_initialize_by(:id => 1).update(name: @dollar["Name"], val: @dollar["Value"], created_at: Time.now, updated_at: Time.now)
+    Rate.find_or_initialize_by(:id => 1).update(name: @dollar["Name"], val: @dollar["Value"].gsub(',','.'), created_at: Time.now, updated_at: Time.now)
   end
 
   private
   def send_broadcast
     p "test b"
-    rate = Rate.find(1)
-    ActionCable.server.broadcast "exchange_channel", content: rate
+    rate_admin = Rate.find(2)
+    if !rate_admin.nil? && Time.now < rate_admin[:fixed_till]
+      ActionCable.server.broadcast "exchange_channel", content: rate_admin
+    else
+      rate = Rate.find(1)
+      ActionCable.server.broadcast "exchange_channel", content: rate
+    end
   end
 end
