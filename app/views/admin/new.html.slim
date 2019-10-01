@@ -1,3 +1,6 @@
+/= stylesheet_link_tag "jquery.datetimepicker.css"
+/= javascript_pack_tag "/build/jquery.datetimepicker.full.min.js"
+
 - if flash[:error]
   div
     p #{flash[:error]}
@@ -12,3 +15,6 @@
   br
   br
   = f.submit
+
+/javascript:
+  jQuery('#rate_fixed_till').datetimepicker();
