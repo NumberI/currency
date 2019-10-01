@@ -1,10 +1,4 @@
-$.ajax({
-    url: '/',
-    dataType: 'json',
-    success: function(data) {
-      console.log(data);
-    },
-    error: function() {
-      alert('error');
-    }
-  });
+$(function() {
+  console.log($('#rate_fixed_till').val());
+  $('#rate_fixed_till').datetimepicker();
+});

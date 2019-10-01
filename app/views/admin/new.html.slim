@@ -1,5 +1,4 @@
-/= stylesheet_link_tag "jquery.datetimepicker.css"
-/= javascript_pack_tag "/build/jquery.datetimepicker.full.min.js"
+= javascript_pack_tag 'root', 'data-turbolinks-track': 'reload'
 
 - if flash[:error]
   div
@@ -15,6 +14,3 @@
   br
   br
   = f.submit
-
-/javascript:
-  jQuery('#rate_fixed_till').datetimepicker();
