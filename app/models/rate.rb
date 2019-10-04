@@ -42,6 +42,6 @@ class Rate < ApplicationRecord
   end
 
   def future
-    errors.add(:fixed_till, "Can't be in the past!") if fixed_till < Time.now
+    errors.add(:fixed_till, "Can't be in the past!") if !fixed_till.nil? && fixed_till < Time.now
   end
 end
