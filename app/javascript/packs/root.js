@@ -1,7 +1,7 @@
-import $ from 'jquery';
+import jQuery from 'jquery';
 require('jquery-datetimepicker');
 
 $(function() {
   console.log($('#rate_fixed_till').val());
-  $('#rate_fixed_till').datetimepicker();
+  jQuery('#rate_fixed_till').datetimepicker();
 });
