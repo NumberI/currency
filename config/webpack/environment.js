@@ -8,7 +8,7 @@ environment.plugins.prepend('Provide',
     $: 'jquery/src/jquery',
     jquery: 'jquery/src/jquery',
     jQuery: 'jquery/src/jquery',
-    datetimepicker: 'jquery-datetimepicker/builds/jquery.datetimepicker.full.min'
+    'jquery-datetimepicker': 'jquery-datetimepicker/builds/jquery.datetimepicker.full.min'
 
   })
 )

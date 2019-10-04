@@ -8,7 +8,17 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require('jquery')
-require('jquery-datetimepicker')
+// require('jquery-datetimepicker')
+// require("jquery-datetimepicker/builds/jquery.datetimepicker.full.min")
+// import $ from 'jquery';
+// import './jquery.datetimepicker.full.min.js';
+// import('jquery-datetimepicker')
+
+// $(function() {
+//   console.log($('#rate_fixed_till').val());
+//   // console.log($('#rate_fixed_till').datetimepicker());
+//   $('#rate_fixed_till').datetimepicker();
+// });
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
