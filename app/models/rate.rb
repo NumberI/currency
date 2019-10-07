@@ -32,16 +32,11 @@ class Rate < ApplicationRecord
   private
   def send_broadcast
     p "test b"
-    rate_admin = Rate.find(2)
-    if !rate_admin.nil? && Time.now < rate_admin[:fixed_till]
-      ActionCable.server.broadcast "exchange_channel", content: rate_admin
-    else
-      rate = Rate.find(1)
-      ActionCable.server.broadcast "exchange_channel", content: rate
-    end
+    Rate.exists?(2) && Time.now < Rate.find(2)[:fixed_till] ? rate_admin = Rate.find(2) : rate_admin = Rate.find(1)
+    ActionCable.server.broadcast "exchange_channel", content: rate_admin
   end
 
   def future
-    errors.add(:fixed_till, "Can't be in the past!") if fixed_till.nil? || fixed_till < Time.now
+    errors.add(:fixed_till, "Can't be in the past!") if !fixed_till.nil? && fixed_till < Time.now
   end
 end
