@@ -20,7 +20,8 @@ class Rate < ApplicationRecord
   after_commit :send_broadcast
 
   def self.new_rate
-    date = rand(0..20).days.ago.strftime("%d/%m/%Y")
+    # date = rand(0..20).days.ago.strftime("%d/%m/%Y")
+    date = Time.now.strftime("%d/%m/%Y")
     xml = open("https://www.cbr.ru/scripts/XML_daily.asp?date_req=#{date}").read
     cur = Hash.from_xml(xml, ['integer'])
     @date = cur["ValCurs"]["Date"]
@@ -31,7 +32,6 @@ class Rate < ApplicationRecord
 
   private
   def send_broadcast
-    p "test b"
     Rate.exists?(2) && Time.now < Rate.find(2)[:fixed_till] ? rate_admin = Rate.find(2) : rate_admin = Rate.find(1)
     ActionCable.server.broadcast "exchange_channel", content: rate_admin
   end
